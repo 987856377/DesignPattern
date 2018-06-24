@@ -53,7 +53,7 @@ protected:
 
 class ConcreteCircle : protected AbstractShape {
 public:
-	ConcreteCircle(DrawAPI * drawAPI, int radius, int x, int y) : AbstractShape(drawAPI), radius(radius), x(x), y(y) {
+	ConcreteCircle(DrawAPI *& drawAPI, int radius, int x, int y) : AbstractShape(drawAPI), radius(radius), x(x), y(y) {
 
 	}
 	void draw() {
