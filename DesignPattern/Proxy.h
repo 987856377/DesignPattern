@@ -1,5 +1,10 @@
 #pragma once
+#include <string>
+using namespace std;
 /*
+
+在代理模式（Proxy Pattern）中，一个类代表另一个类的功能。这种类型的设计模式属于结构型模式。
+在代理模式中，我们创建具有现有对象的对象，以便向外界提供功能接口。
 
 意图：为其他对象提供一种代理以控制对这个对象的访问。
 主要解决：在直接访问对象时带来的问题，比如说：要访问的对象在远程的机器上。
@@ -29,41 +34,29 @@
 
 */
 
-class RealImage {
-	int  m_id;
+class Find {
 public:
-	RealImage(int i) {
-		m_id = i;
-		cout << "   $$ ctor: " << m_id << '\n';
-	}
-	~RealImage() {
-		cout << "   dtor: " << m_id << '\n';
-	}
-	void draw() {
-		cout << "   drawing image " << m_id << '\n';
-	}
+	virtual void FindRoom() = 0;
 };
 
-// 1. Design an "extra level of indirection" wrapper class
-class Image {
-	// 2. The wrapper class holds a pointer to the real class
-	RealImage* m_the_real_thing;
-	int        m_id;
-	static int s_next;
+class ConcretFindRoom : public Find {
 public:
-	Image() {
-		m_id = s_next++;
-		// 3. Initialized to null
-		m_the_real_thing = 0;
+	ConcretFindRoom(string room_type) :room_type(room_type) {}
+	virtual void FindRoom() {
+		cout << room_type << endl;
 	}
-	~Image() { delete m_the_real_thing; }
-	void draw() {
-		// 4. When a request comes in, the real object is
-		//    created "on first use"
-		if (!m_the_real_thing)
-			m_the_real_thing = new RealImage(m_id);
-		// 5. The request is always delegated
-		m_the_real_thing->draw();
-	}
+private:
+	string room_type;
 };
-int Image::s_next = 1;
+
+class FindProxy : public Find{
+public:
+	FindProxy(Find * find) {
+		m_find = find;
+	}
+	void FindRoom() {
+		m_find->FindRoom();
+	}
+private:
+	Find * m_find;
+};

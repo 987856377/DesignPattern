@@ -1,5 +1,6 @@
 #pragma once
 #include <string>
+using namespace std;
 /*
 
 享元模式（Flyweight Pattern）主要用于减少创建对象的数量，以减少内存占用和提高性能。
@@ -52,7 +53,7 @@ class FlyweightFactory {
 public:
 	static Icon* getIcon(string name) {
 		for (int i = 0; i < _numIcons; i++)
-			if (!name._Equal(_icons[i]->getName()))
+			if (name._Equal(_icons[i]->getName()))
 				return _icons[i];
 		_icons[_numIcons] = new Icon(name);
 		return _icons[_numIcons++];
