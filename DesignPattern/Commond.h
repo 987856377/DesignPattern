@@ -38,8 +38,8 @@ class Person;
 
 class Command {                // 1. Create a class that encapsulates an object
 	Person*  object;            //    and a member function
-	void (Person::*method)();   // a pointer to a member function (the attri-
-public:                        //    bute's name is "method")
+	void (Person::*method)();   // a pointer to a member function (the attribute's name is "method")
+public:                           
 	Command(Person* obj = 0, void (Person::*meth)() = 0) {
 		object = obj;            // the argument's name is "meth"
 		method = meth;
@@ -51,19 +51,19 @@ public:                        //    bute's name is "method")
 
 class Person {
 	string   name;
-	Command  cmd;               // cmd is a "black box", it is a method invoca-
-public:                        //    tion promoted to "full object status"
+	Command  cmd;               // cmd is a "black box", it is a method invocation promoted to "full object status"
+public:                            
 	Person(string n, Command c) : cmd(c) {
 		name = n;
 	}
-	void talk() {               // "this" is the sender, cmd has the receiver
+	void talk() {                // "this" is the sender, cmd has the receiver
 		std::cout << name.data() << " is talking" << std::endl;
 		cmd.execute();           // ask the "black box" to callback the receiver
 	}
 	void passOn() {
 		std::cout << name.data() << " is passing on" << std::endl;
-		cmd.execute();           // 4. When the sender is ready to callback to
-	}                           //    the receiver, it calls execute()
+		cmd.execute();           // 4. When the sender is ready to callback to the receiver, it calls execute()
+	}                               
 	void gossip() {
 		std::cout << name.data() << " is gossiping" << std::endl;
 		cmd.execute();
